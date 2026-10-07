@@ -1,0 +1,10 @@
+{
+  "author": "osi1880vr",
+  "title": "osiworx-pack",
+  "reference": "https://github.com/osi1880vr/osiworx-pack",
+  "files": [
+    "https://github.com/osi1880vr/osiworx-pack"
+  ],
+  "install_type": "git-clone",
+  "description": "Osiworx node pack. Module 'layer': token-chunked execution of big DiTs (MiniMax H3, Krea 2) to lower activation memory on long videos / large images. Works together with ComfyUI Dynamic VRAM (--vram-headroom). Module 'wos': Megapixel Size, width/height for a megapixel budget from an input image."
+}

@@ -1,0 +1,703 @@
+{
+ "id": "layerstream-test-1---krea2-on-small-vram",
+ "revision": 0,
+ "last_node_id": 11,
+ "last_link_id": 10,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "UNETLoader",
+   "pos": [
+    60,
+    260
+   ],
+   "size": [
+    330,
+    112
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "unet_name",
+     "type": "*",
+     "link": null,
+     "widget": {
+      "name": "unet_name"
+     }
+    },
+    {
+     "name": "weight_dtype",
+     "type": "*",
+     "link": null,
+     "widget": {
+      "name": "weight_dtype"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      10
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "UNETLoader"
+   },
+   "widgets_values": [
+    "krea2_turbo_int8_convrot.safetensors",
+    "default"
+   ]
+  },
+  {
+   "id": 2,
+   "type": "CLIPLoader",
+   "pos": [
+    60,
+    402
+   ],
+   "size": [
+    330,
+    138
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "clip_name",
+     "type": "*",
+     "link": null,
+     "widget": {
+      "name": "clip_name"
+     }
+    },
+    {
+     "name": "type",
+     "type": "*",
+     "link": null,
+     "widget": {
+      "name": "type"
+     }
+    },
+    {
+     "name": "device",
+     "type": "*",
+     "link": null,
+     "widget": {
+      "name": "device"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      1,
+      2
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CLIPLoader"
+   },
+   "widgets_values": [
+    "qwen3vl_4b_fp8_scaled.safetensors",
+    "krea2",
+    "default"
+   ]
+  },
+  {
+   "id": 3,
+   "type": "VAELoader",
+   "pos": [
+    60,
+    570
+   ],
+   "size": [
+    330,
+    86
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "vae_name",
+     "type": "*",
+     "link": null,
+     "widget": {
+      "name": "vae_name"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      8
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "qwen_image_vae.safetensors"
+   ]
+  },
+  {
+   "id": 4,
+   "type": "CLIPTextEncode",
+   "pos": [
+    460,
+    260
+   ],
+   "size": [
+    400,
+    140
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "text",
+     "type": "STRING",
+     "link": null,
+     "widget": {
+      "name": "text"
+     }
+    },
+    {
+     "name": "clip",
+     "type": "CLIP",
+     "link": 1
+    }
+   ],
+   "outputs": [
+    {
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      4
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CLIPTextEncode"
+   },
+   "widgets_values": [
+    "a photo of a red fox in a snowy forest, detailed"
+   ]
+  },
+  {
+   "id": 5,
+   "type": "CLIPTextEncode",
+   "pos": [
+    460,
+    430
+   ],
+   "size": [
+    400,
+    140
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "text",
+     "type": "STRING",
+     "link": null,
+     "widget": {
+      "name": "text"
+     }
+    },
+    {
+     "name": "clip",
+     "type": "CLIP",
+     "link": 2
+    }
+   ],
+   "outputs": [
+    {
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      5
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CLIPTextEncode"
+   },
+   "widgets_values": [
+    ""
+   ]
+  },
+  {
+   "id": 6,
+   "type": "EmptyLatentImage",
+   "pos": [
+    60,
+    686
+   ],
+   "size": [
+    330,
+    138
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "width",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "width"
+     }
+    },
+    {
+     "name": "height",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "height"
+     }
+    },
+    {
+     "name": "batch_size",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "batch_size"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      6
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "EmptyLatentImage"
+   },
+   "widgets_values": [
+    2048,
+    2048,
+    1
+   ]
+  },
+  {
+   "id": 7,
+   "type": "KSampler",
+   "pos": [
+    860,
+    260
+   ],
+   "size": [
+    330,
+    320
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 3
+    },
+    {
+     "name": "seed",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "seed"
+     }
+    },
+    {
+     "name": "steps",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "steps"
+     }
+    },
+    {
+     "name": "cfg",
+     "type": "FLOAT",
+     "link": null,
+     "widget": {
+      "name": "cfg"
+     }
+    },
+    {
+     "name": "sampler_name",
+     "type": "*",
+     "link": null,
+     "widget": {
+      "name": "sampler_name"
+     }
+    },
+    {
+     "name": "scheduler",
+     "type": "*",
+     "link": null,
+     "widget": {
+      "name": "scheduler"
+     }
+    },
+    {
+     "name": "positive",
+     "type": "CONDITIONING",
+     "link": 4
+    },
+    {
+     "name": "negative",
+     "type": "CONDITIONING",
+     "link": 5
+    },
+    {
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 6
+    },
+    {
+     "name": "denoise",
+     "type": "FLOAT",
+     "link": null,
+     "widget": {
+      "name": "denoise"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      7
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "KSampler"
+   },
+   "widgets_values": [
+    100,
+    "fixed",
+    8,
+    1.0,
+    "euler",
+    "normal",
+    1.0
+   ]
+  },
+  {
+   "id": 8,
+   "type": "VAEDecodeTiled",
+   "pos": [
+    1260,
+    260
+   ],
+   "size": [
+    330,
+    216
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 7
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 8
+    },
+    {
+     "name": "tile_size",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "tile_size"
+     }
+    },
+    {
+     "name": "overlap",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "overlap"
+     }
+    },
+    {
+     "name": "temporal_size",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "temporal_size"
+     }
+    },
+    {
+     "name": "temporal_overlap",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "temporal_overlap"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      9
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecodeTiled"
+   },
+   "widgets_values": [
+    512,
+    64,
+    64,
+    8
+   ]
+  },
+  {
+   "id": 9,
+   "type": "SaveImage",
+   "pos": [
+    1660,
+    260
+   ],
+   "size": [
+    330,
+    300
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 9
+    },
+    {
+     "name": "filename_prefix",
+     "type": "STRING",
+     "link": null,
+     "widget": {
+      "name": "filename_prefix"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "links": [],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "layerstream_krea2"
+   ]
+  },
+  {
+   "id": 10,
+   "type": "LayerStreamKrea2Chunking",
+   "pos": [
+    460,
+    600
+   ],
+   "size": [
+    330,
+    138
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 10
+    },
+    {
+     "name": "mlp_chunk_tokens",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "mlp_chunk_tokens"
+     }
+    },
+    {
+     "name": "attn_chunk_tokens",
+     "type": "INT",
+     "link": null,
+     "widget": {
+      "name": "attn_chunk_tokens"
+     }
+    }
+   ],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      3
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LayerStreamKrea2Chunking"
+   },
+   "widgets_values": [
+    4096,
+    4096
+   ]
+  },
+  {
+   "id": 11,
+   "type": "MarkdownNote",
+   "pos": [
+    60,
+    20
+   ],
+   "size": [
+    760,
+    230
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {},
+   "widgets_values": [
+    "# LayerStream test 1 - big model on a small VRAM budget (Krea2, 24.5 GB bf16)\n\n**Weights** stream because of how ComfyUI is started, **activations** (they grow with image size) are handled by the `LayerStream: Krea2 Chunking` node + tiled VAE decode.\n\nOn a 24 GB card with **default flags** the node alone was enough in a production test (bf16 24.5 GB: about 30 s with the node, did not finish without it).\nTo force a small budget, start ComfyUI with (example: target ~4 GB resident):\n\n`--vram-headroom 20 --disable-pinned-memory`\n\n- `--vram-headroom N` = GB of VRAM ComfyUI must leave free. Weights are streamed layer by layer into the rest.\n  For a target budget of X GB use `N = (your total VRAM) - X`.\n- `--disable-pinned-memory` stops pinned host RAM from showing up as \"shared GPU memory\".\n\nCompare: run once **without** the flags and once with, and watch VRAM (nvidia-smi / Task Manager). Also try bypassing the node.\nMeasured here (24.5 GB bf16): ~21.5 GB over idle without flags; with flags **~1.6 GB at 1024x1024**. This graph is 2048x2048 (4 MP):\nstock ComfyUI (with the tiled VAE) ran under a hard 3 GB cap and failed at 2 GB; with the node it ran at 2 GB and failed at 1 GB,\nso the node buys about 1 GB at 4 MP. At 1024x1024 the flags alone are enough (stock, no node, ran down to a 1 GB cap).\nWith chunking the output is numerically equivalent but not bit-identical (bf16 matmul rounding; ~38-41 dB vs stock, visually\nthe same) and it is slower. Smaller chunks = less VRAM but slower. See the README in the node folder for all numbers and limits.\n\nSet the model names in the loader nodes to your own files first."
+   ]
+  }
+ ],
+ "links": [
+  [
+   1,
+   2,
+   0,
+   4,
+   1,
+   "CLIP"
+  ],
+  [
+   2,
+   2,
+   0,
+   5,
+   1,
+   "CLIP"
+  ],
+  [
+   3,
+   10,
+   0,
+   7,
+   0,
+   "MODEL"
+  ],
+  [
+   4,
+   4,
+   0,
+   7,
+   6,
+   "CONDITIONING"
+  ],
+  [
+   5,
+   5,
+   0,
+   7,
+   7,
+   "CONDITIONING"
+  ],
+  [
+   6,
+   6,
+   0,
+   7,
+   8,
+   "LATENT"
+  ],
+  [
+   7,
+   7,
+   0,
+   8,
+   0,
+   "LATENT"
+  ],
+  [
+   8,
+   3,
+   0,
+   8,
+   1,
+   "VAE"
+  ],
+  [
+   9,
+   8,
+   0,
+   9,
+   0,
+   "IMAGE"
+  ],
+  [
+   10,
+   1,
+   0,
+   10,
+   0,
+   "MODEL"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "title": "LayerStream test 1 - Krea2 on small VRAM"
+ },
+ "version": 0.4
+}

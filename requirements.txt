@@ -1,0 +1,1 @@
+# osiworx-pack has no extra pip dependencies; it uses what ComfyUI already ships (torch, einops, comfy.*).

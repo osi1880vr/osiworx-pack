@@ -1,0 +1,5 @@
+# Files kept in git but not needed in the registry archive
+RELEASING.md
+manager/
+scripts/check_release.py
+.github/
