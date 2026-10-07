@@ -113,7 +113,7 @@ So **weights streaming alone already handles Krea2 at 1 MP**; the node is not ne
 
 Reported by the author from a separate production ComfyUI (24 GB card, **no special launch flags**), Krea 2 **bf16** (24.5 GB file):
 
-- **with** `LayerStream: Krea2 Chunking`: runs, about 30 s.
+- **with** `LayerStream: Krea2 Chunking`: runs, about 1 minute (a timed run took 57 s; an earlier rough report said about 30 s, which was not a timed figure).
 - **without** the node: did not finish in a reasonable time ("runs forever"), although the dedicated VRAM showed about 24 GB in both cases.
 
 Our explanation (not verified on that machine): with default flags Dynamic VRAM fills the card with weights; the unchunked activations then

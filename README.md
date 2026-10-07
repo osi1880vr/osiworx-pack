@@ -51,7 +51,7 @@ memory, which is very slow.
 
 ## Honest summary of the first module
 
-- Production report (one run, default launch flags, 24 GB card): Krea2 bf16 (24.5 GB) ran in about 30 s with the Krea2 node and did not
+- Production report (one run, default launch flags, 24 GB card): Krea2 bf16 (24.5 GB) ran in about 1 minute with the Krea2 node and did not
   finish without it. Details and caveats in [layer/README.md](layer/README.md).
 - H3 15 s at 1 MP: on the 24 GB test card the launch flag alone already fixed it; the node additionally keeps PyTorch's own allocations
   under a hard 8 GB cap with **bit-identical** output, about 10 % slower. Not tested on cards below 24 GB.
