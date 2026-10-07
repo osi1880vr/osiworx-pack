@@ -127,9 +127,16 @@ Reports from other people, quoted as they were given. We could not ask follow-up
 - **MiniMax H3, 12 GB RTX 3080 Ti, 64 GB system RAM** (posted as a comment on the workflow's Civitai page): used the published H3 workflow.
   A 15 s clip finished in 34 min 35 s total, a 10 s clip in 17 min 40 s. The reporter wrote that the image stayed fairly consistent
   across the 15 s video.
-  - Not stated: launch flags, whether the chunking node was active or bypassed, resolution and step count if changed, and what happens
-    without the node. So this shows that the workflow **can complete on a 12 GB card with 64 GB of RAM**. It does not show that the node
-    is required, and it says nothing about cards with less VRAM or less RAM.
+  - Follow-up from the same reporter: he added a **"Model Attention Backend"** node set to **Comfy Kitchen**, placed after the LoRA loader
+    and before the LayerStream node. The 10 s clip then took **11 min 33 s** instead of 17 min 40 s. This also shows the chunking node was
+    in the graph and that it works together with the attention backend setting. One run on one machine, nothing else controlled, so
+    treat the speed-up as a hint to try, not a promise.
+  - Cautions: the author once tried the same kind of attention-backend node and got a broken video from a graph that had rendered fine
+    before (cause not investigated; it may not be the backend's fault). Our "bit-identical" result was measured with ComfyUI's default
+    attention only. Other backends use different kernels and were not tested, so check your output when you switch.
+  - Not stated: launch flags, resolution and step count if changed, and what happens without the node. So this shows that the
+    workflow **can complete on a 12 GB card with 64 GB of RAM**. It does not show that the node is required, and it says nothing about
+    cards with less VRAM or less RAM.
   - This is the first H3 result we have from a card smaller than 24 GB. It is slow, which fits the picture that the weights stream from
     system RAM.
 
