@@ -81,7 +81,7 @@ limited separately through `--vram-headroom`. This is **not** the same as the wh
 Important context:
 - On a 24 GB card the **launch flag alone** already fixed the 15 s clip. The node's added value is a much lower activation
   peak (hard 8 GB allocator cap), which matters for smaller cards or longer/larger clips than we could test. We did not run
-  H3 on a card smaller than 24 GB.
+  H3 on a card smaller than 24 GB ourselves; see "User reports" for one result on a 12 GB card.
 - The whole-GPU peak of the 8 GB-cap run was about +11.5 GB over idle, because we used `--vram-headroom 10` for the weights.
   **We have not shown that this fits an 8 GB card.** You would raise `--vram-headroom` for that and it is untested for H3.
 - 1-2 step H3 clips look broken (e.g. distorted details) with and without the node; the turbo LoRA is meant for about 6 steps.
@@ -120,6 +120,19 @@ Our explanation (not verified on that machine): with default flags Dynamic VRAM 
 spill into shared system memory, which is very slow. Chunking keeps the activations small so nothing spills. Not recorded for that run:
 resolution, chunk sizes, ComfyUI version, shared-GPU-memory readings. It is a single anecdotal result, not a benchmark.
 
+### User reports
+
+Reports from other people, quoted as they were given. We could not ask follow-up questions, so details are missing.
+
+- **MiniMax H3, 12 GB RTX 3080 Ti, 64 GB system RAM** (posted as a comment on the workflow's Civitai page): used the published H3 workflow.
+  A 15 s clip finished in 34 min 35 s total, a 10 s clip in 17 min 40 s. The reporter wrote that the image stayed fairly consistent
+  across the 15 s video.
+  - Not stated: launch flags, whether the chunking node was active or bypassed, resolution and step count if changed, and what happens
+    without the node. So this shows that the workflow **can complete on a 12 GB card with 64 GB of RAM**. It does not show that the node
+    is required, and it says nothing about cards with less VRAM or less RAM.
+  - This is the first H3 result we have from a card smaller than 24 GB. It is slow, which fits the picture that the weights stream from
+    system RAM.
+
 ### Exactness details
 
 - H3: bit-identical in every comparison we ran.
@@ -139,7 +152,8 @@ H3 15 s: about 10 % slower at 8 GB cap (2 steps). Krea2 1024x1024 with 1024-toke
 
 - Not a general "run any model on any GPU" tool. It is two model-specific nodes.
 - Not a replacement for Dynamic VRAM; it depends on it for the weights.
-- Not tested below 24 GB of physical VRAM. All "caps" are software caps on a 24 GB card.
+- Not tested by us below 24 GB of physical VRAM. All our "caps" are software caps on a 24 GB card. One user reported a 15 s H3 clip
+  finishing on a 12 GB card with 64 GB RAM (see "User reports").
 - Not a speedup. It trades time for memory.
 
 ## Limits
